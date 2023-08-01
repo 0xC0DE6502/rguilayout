@@ -1,0 +1,52 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build debug",
+      "type": "process",
+      "command": "make",
+      "args": [
+        "PLATFORM=PLATFORM_DESKTOP",
+        "BUILD_MODE=DEBUG",
+        "PROJECT_NAME=rguilayout",
+        "OBJS=rguilayout.c external/tinyfiledialogs.c"
+      ],
+      "windows": {
+        "command": "mingw32-make.exe",
+        "args": [
+          "PLATFORM=PLATFORM_DESKTOP",
+          "RAYLIB_PATH=f:/raylib",
+          "PROJECT_NAME=rguilayout",
+          "OBJS=rguilayout.c external/tinyfiledialogs.c",
+          "BUILD_MODE=DEBUG"
+        ]
+      },
+      "group": "build",
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "build release",
+      "type": "process",
+      "command": "make",
+      "args": [
+        "PLATFORM=PLATFORM_DESKTOP",
+        "PROJECT_NAME=rguilayout",
+        "OBJS=rguilayout.c external/tinyfiledialogs.c"
+      ],
+      "windows": {
+        "command": "mingw32-make.exe",
+        "args": [
+          "RAYLIB_PATH=f:/raylib",
+          "PROJECT_NAME=rguilayout",
+          "OBJS=rguilayout.c external/tinyfiledialogs.c"
+        ]
+      },
+      "group": "build",
+      "problemMatcher": [
+        "$gcc"
+      ]
+    }
+ ]
+}

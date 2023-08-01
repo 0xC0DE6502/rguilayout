@@ -29,13 +29,13 @@
 PLATFORM              ?= PLATFORM_DESKTOP
 
 # Define project variables
-PROJECT_NAME          ?= rtoolname
+PROJECT_NAME          ?= rguilayout
 PROJECT_VERSION       ?= 1.0
 PROJECT_BUILD_PATH    ?= .
 
-RAYLIB_PATH           ?= C:/GitHub/raylib
+RAYLIB_PATH           ?= f:/raylib
 RAYLIB_INCLUDE_PATH   ?= $(RAYLIB_PATH)/src
-RAYLIB_LIB_PATH       ?= $(RAYLIB_PATH)/src
+RAYLIB_LIB_PATH       ?= $(RAYLIB_PATH)/lib
 
 # Build mode for project: DEBUG or RELEASE
 BUILD_MODE            ?= RELEASE
@@ -149,6 +149,7 @@ endif
 #  -D_DEFAULT_SOURCE    use with -std=c99 on Linux and PLATFORM_WEB, required for timespec
 CFLAGS = -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -Wno-unused-value $(PROJECT_CUSTOM_FLAGS)
 #CFLAGS += -Wextra -Wmissing-prototypes -Wstrict-prototypes
+CFLAGS += -Wno-pointer-sign -Wno-unused-variable -Wno-int-conversion -Wno-unused-but-set-variable -Wno-discarded-qualifiers -Wno-incompatible-pointer-types -Wno-dangling-pointer -Wno-address
 
 ifeq ($(BUILD_MODE),DEBUG)
     CFLAGS += -g -D_DEBUG
@@ -323,7 +324,7 @@ endif
 # Define source code files required
 #------------------------------------------------------------------------------------------------
 PROJECT_SOURCE_FILES ?= \
-    rtoolname.c \
+    rguilayout.c \
     external/tinyfiledialogs.c
 
 # Define all object files from source files
@@ -338,7 +339,7 @@ all:
 
 # Project target defined by PROJECT_NAME
 $(PROJECT_NAME): $(OBJS)
-	$(CC) -o $(PROJECT_BUILD_PATH)/$(PROJECT_NAME)$(EXT) $(OBJS) $(CFLAGS) $(INCLUDE_PATHS) $(LDFLAGS) $(LDLIBS) -D$(PLATFORM)
+	$(CC) -o $(PROJECT_BUILD_PATH)/../$(PROJECT_NAME).exe $(OBJS) $(CFLAGS) $(INCLUDE_PATHS) $(LDFLAGS) $(LDLIBS) -D$(PLATFORM)
 
 # Compile source files
 # NOTE: This pattern will compile every module defined on $(OBJS)
@@ -349,7 +350,7 @@ $(PROJECT_NAME): $(OBJS)
 clean:
 ifeq ($(PLATFORM),PLATFORM_DESKTOP)
     ifeq ($(PLATFORM_OS),WINDOWS)
-		del *.o *.exe /s
+		del *.o external\*.o ..\$(PROJECT_NAME).exe
     endif
     ifeq ($(PLATFORM_OS),LINUX)
 		find . -type f -executable -delete
