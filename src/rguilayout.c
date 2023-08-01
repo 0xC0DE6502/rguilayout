@@ -153,7 +153,7 @@
 
 // raygui embedded styles
 // NOTE: Included in the same order as selector
-#define MAX_GUI_STYLES_AVAILABLE   12       // NOTE: Included light style
+#define MAX_GUI_STYLES_AVAILABLE   13       // NOTE: Included light style
 #include "styles/style_jungle.h"            // raygui style: jungle
 #include "styles/style_candy.h"             // raygui style: candy
 #include "styles/style_lavanda.h"           // raygui style: lavanda
@@ -165,6 +165,7 @@
 #include "styles/style_cherry.h"            // raygui style: cherry
 #include "styles/style_sunny.h"             // raygui style: sunny
 #include "styles/style_enefete.h"           // raygui style: enefete
+#include "styles/lightcustom.h"
 
 // WARNING: When compiling in raylib DLL mode, this include generates missing symbols issues: zinflate, sdefl_bound, zsdeflate
 // because those symbols are provided by raylib but are moved to the external DLL
@@ -288,11 +289,12 @@ int main(int argc, char *argv[])
     // GUI usage mode - Initialization
     //--------------------------------------------------------------------------------------
     const int screenWidth = 1280;
-    const int screenHeight = 800;
+    const int screenHeight = 720;//800;
 
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);  // Window configuration flags
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE|FLAG_WINDOW_HIGHDPI);  // Window configuration flags
     InitWindow(screenWidth, screenHeight, TextFormat("%s v%s | %s", toolName, toolVersion, toolDescription));
     SetWindowMinSize(1280, 720);
+    SetWindowState(FLAG_WINDOW_MAXIMIZED);
     SetExitKey(0);
 
     // Code font generation for embedding
@@ -1018,6 +1020,7 @@ int main(int argc, char *argv[])
                 case 9: GuiLoadStyleCherry(); break;
                 case 10: GuiLoadStyleSunny(); break;
                 case 11: GuiLoadStyleEnefete(); break;
+                case 12: GuiLoadStyleLightCustom(); break;
                 default: break;
             }
 
